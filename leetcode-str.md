@@ -1,5 +1,125 @@
 # String
-## [Reverse String](https://leetcode.com/problems/reverse-string/)
+
+## [14. Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/)
+```python
+class Solution(object):
+    def longestCommonPrefix(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: str
+        """
+        if not strs:
+            return ""
+        for i in range(len(strs[0])):
+            for string in strs[1:]:
+                if i >= len(string) or string[i] != strs[0][i]:
+                    return strs[0][:i]
+        return strs[0]
+```
+
+## [165. Compare Version Numbers](https://leetcode.com/problems/compare-version-numbers/)
+> 0.1 < 1.1 < 1.2 < 13.37
+```python
+class Solution(object):
+    def compareVersion(self, version1, version2):
+        """
+        :type version1: str
+        :type version2: str
+        :rtype: int
+        """
+        lv1 = version1.split(".")
+        lv2 = version2.split(".")
+        i = 0
+        if len(lv1) > len(lv2):
+            lv2 += ['0' for _ in range(len(lv1) - len(lv2))]
+        if len(lv1) < len(lv2):
+            lv1 += ['0' for _ in range(len(lv2) - len(lv1))]
+        while i < min(len(lv1), len(lv2)):
+            if int(lv1[i]) < int(lv2[i]):
+                return -1
+            if int(lv1[i]) > int(lv2[i]):
+                return 1
+            else:
+                i += 1
+        return 0
+```
+
+## [20. Valid Parentheses](https://leetcode.com/problems/valid-parentheses/)
+>"()" and "()[]{}" are all valid but "(]" and "([)]" are not.
+
+```python
+class Solution(object):
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        stack = []
+        lookup = {"(": ")", "{": "}", "[": "]"}
+        for i in s:
+            if i in lookup:
+                stack.append(i)
+            elif len(stack) == 0 or lookup[stack.pop()] != i:
+                return False
+        return len(stack) == 0
+        
+```
+
+## [125. Valid Palindrome](https://leetcode.com/problems/valid-palindrome/)
+
+>"A man, a plan, a canal: Panama" is a palindrome.
+
+```python
+class Solution(object):
+    def isPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        i = 0 
+        j = len(s) - 1
+        while i < j:
+            while i < j and not s[i].isalnum():
+                i += 1
+            while i < j and not s[j].isalnum():
+                j -=1
+            if s[i].lower() == s[j].lower():
+                i += 1
+                j -= 1
+            else:
+                return False
+        return True
+```
+
+## [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
+
+>Given a string, find the length of the longest substring without repeating characters.
+
+>Given "abcabcbb", the answer is "abc", which the length is 3.
+
+```python
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        up = 0
+        down = 0
+        index = {}
+        ans = 0
+
+        for down in range(len(s)):
+            if s[down] in index:
+                up = max(up, index[s[down]])
+
+            ans = max(ans, down - up + 1)
+            index[s[down]] = down + 1
+
+        return ans
+```
+
+## [344.Reverse String](https://leetcode.com/problems/reverse-string/)
 >Write a function that takes a string as input and returns the string reversed.
 
 Example:
@@ -14,7 +134,7 @@ class Solution(object):
         """
         return s[::-1]
 ```
-## [Add Binary](https://leetcode.com/problems/add-binary/)
+## [67.Add Binary](https://leetcode.com/problems/add-binary/)
 >Given two binary strings, return their sum (also a binary string).
 
 Example: Given
@@ -48,7 +168,7 @@ class Solution(object):
         return sum
 ```
 
-## [Repeated Substring Pattern](https://leetcode.com/problems/repeated-substring-pattern/)
+## [459.Repeated Substring Pattern](https://leetcode.com/problems/repeated-substring-pattern/)
 >Given a non-empty string check if it can be constructed by taking a substring of it and appending multiple copies of the substring together. You may assume the given string consists of lowercase English letters only and its length will not exceed 10000.
 
 Example:
@@ -86,7 +206,7 @@ class Solution(object):
         return sum
 ```
 
-## [ZigZag Conversion](https://leetcode.com/problems/zigzag-conversion/)
+## [6.ZigZag Conversion](https://leetcode.com/problems/zigzag-conversion/)
 
 ```python
 class Solution(object):
@@ -112,7 +232,7 @@ class Solution(object):
         return ''.join(L)
 ```
 
-## [Roman to Integer](https://leetcode.com/problems/roman-to-integer/)
+## [13.Roman to Integer](https://leetcode.com/problems/roman-to-integer/)
 >Given a roman numeral, convert it to an integer.
 Input is guaranteed to be within the range from 1 to 3999.
 
@@ -133,7 +253,7 @@ class Solution(object):
         return z + roman[s[-1]]
 ```
 
-## [Integer to Roman](https://leetcode.com/problems/integer-to-roman/)
+## [12.Integer to Roman](https://leetcode.com/problems/integer-to-roman/)
 >Given an integer, convert it to a roman numeral.
 Input is guaranteed to be within the range from 1 to 3999.
 
@@ -230,32 +350,4 @@ class Solution(object):
             temp.append(s[-1])
             s = ''.join(temp)
         return s
-```
-
-## [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
-
->Given a string, find the length of the longest substring without repeating characters.
-
->Given "abcabcbb", the answer is "abc", which the length is 3.
-
-```python
-class Solution(object):
-    def lengthOfLongestSubstring(self, s):
-        """
-        :type s: str
-        :rtype: int
-        """
-        up = 0
-        down = 0
-        index = {}
-        ans = 0
-
-        for down in range(len(s)):
-            if s[down] in index:
-                up = max(up, index[s[down]])
-
-            ans = max(ans, down - up + 1)
-            index[s[down]] = down + 1
-
-        return ans
 ```
