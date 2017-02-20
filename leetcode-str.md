@@ -1,6 +1,18 @@
-# String
+# [String](https://leetcode.com/tag/string/)
 
-## []()
+## [189. Rotate Array](https://leetcode.com/problems/rotate-array/)
+```python
+class Solution(object):
+    def rotate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        n = len(nums)
+        k = k % n
+        nums[:] = nums[n - k:] + nums[:n - k]
+```
 ## [14. Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/)
 ```python
 class Solution(object):

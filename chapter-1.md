@@ -1,4 +1,4 @@
-# [chapter 1](https://leetcode.com/courses/chapters/1)
+# [CHAPTER 1. ARRAY / STRING](https://leetcode.com/courses/chapters/1)
 ## [I. Two-pointer technique](https://leetcode.com/articles/two-pointer-technique/)
 
 ### [26. Remove Duplicates from Sorted Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/)
@@ -51,6 +51,8 @@ class Solution(object):
 
 ## [II. Hash Table:](https://leetcode.com/articles/hash-table/)
 ### [242. Valid Anagram](https://leetcode.com/problems/valid-anagram/)
+>s = "anagram", t = "nagaram", return true.
+s = "rat", t = "car", return false.
 
 ```python
 class Solution(object):
@@ -68,9 +70,10 @@ class Solution(object):
             dic[i] = dic.get(i, 0) + 1
         return dic
     
-    def isAnagram3(self, s, t):
+    def isAnagram2(self, s, t):
         return sorted(s) == sorted(t)
 ```
+[solution](https://leetcode.com/articles/valid-anagram/)
 
 ### [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
 
@@ -110,28 +113,34 @@ class Solution(object):
         :type str: str
         :rtype: int
         """
-        INT_MAX =  2147483647
+class Solution(object):
+    def myAtoi(self, str):
+        """
+        :type str: str
+        :rtype: int
+        """
+        INT_MAX = 2147483647
         INT_MIN = -2147483648
-        result = 0
         temp = str.strip()
         if not temp:
             return 0
-        sign = 1 
+        if len(temp) == 1 and not '0' <= temp[0] <= '9':
+            return 0
+        result = 0
+        flag = 1
         i = 0
-        if temp[0] == '-':
-            sign = -1
+        if temp[i] == "+":
             i += 1
-        if temp[0] == '+':
-            sign = 1
+        elif temp[i] == "-":
             i += 1
-
-        while i < len(temp) and temp[i] >= "0" and temp[i] <= "9":
-            if result > (INT_MAX - (ord(temp[i]) - ord('0'))) / 10:
-                if sign > 0:
+            flag = -1
+        while  i < len(temp) and '0' <= temp[i] <= '9':
+            if result > (INT_MAX - ord(temp[i]) + ord('0')) / 10:
+                if flag > 0:
                     return INT_MAX
                 else:
                     return INT_MIN
-            result = 10 * result + ord(temp[i]) - ord("0")
+            result = result * 10 + ord(temp[i]) - ord('0')
             i += 1
-        return result*sign
+        return result * flag
 ```

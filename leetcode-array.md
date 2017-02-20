@@ -1,9 +1,22 @@
-# Array
-## []()
->
+# [Array](https://leetcode.com/tag/array/)
+## [485. Max Consecutive Ones](https://leetcode.com/problems/max-consecutive-ones/)
+>Input: [1,1,0,1,1,1] Output: 3
 
 ```python
-
+class Solution(object):
+    def findMaxConsecutiveOnes(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        count, ans = 0, 0
+        for i in nums:
+            if i == 1:
+                count += 1
+            else:
+                ans = max(count, ans)
+                count = 0
+        return max(ans, count)
 ```
 * Solution
 
@@ -363,3 +376,73 @@ class Solution(object):
         a.remove(max(a))
         return max(a)
 ```
+
+
+## []()
+>
+
+```python
+class Solution(object):
+
+#xor
+    def missingNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        import operator.xor
+        return reduce(operator.xor, range(len(nums) + 1) + nums)
+
+#sum
+    def missingNumber2(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        return sum(range(len(nums) + 1)) - sum(nums)
+
+#set
+    def missingNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        set_nums = set(nums)
+        for i in range(len(set_nums) + 1):
+            if i not in set_nums:
+                return i
+```
+* Solution
+
+
+
+## []()
+>
+
+```python
+
+```
+* Solution
+
+
+
+
+## []()
+>
+
+```python
+
+```
+* Solution
+
+
+
+
+## []()
+>
+
+```python
+
+```
+* Solution
+
